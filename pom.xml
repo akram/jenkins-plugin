@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -11,7 +12,7 @@
   </parent>
   <groupId>com.openshift.jenkins</groupId>
   <artifactId>openshift-pipeline</artifactId>
-  <version>1.0.56</version>
+  <version>1.0.56-patch-003</version>
   <packaging>hpi</packaging>
 
   <build>
@@ -28,14 +29,14 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.8</version>
-  		<executions>
-    		<execution>
-      			<id>attach-javadocs</id>
-      			<goals>
-        			<goal>jar</goal>
-      			</goals>
-    			</execution>
-  			</executions>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
           <show>private</show>
           <nohelp>true</nohelp>
@@ -45,12 +46,12 @@
         <groupId>org.jenkins-ci.tools</groupId>
         <artifactId>maven-hpi-plugin</artifactId>
         <configuration>
-            <pluginFirstClassLoader>true</pluginFirstClassLoader>
+          <pluginFirstClassLoader>true</pluginFirstClassLoader>
         </configuration>
       </plugin>
     </plugins>
   </build>
-  
+
   <name>OpenShift Pipeline Jenkins Plugin</name>
   <!-- <url>http://openshift.redhat.com</url> -->
   <url>https://wiki.jenkins-ci.org/display/JENKINS/OpenShift+Pipeline+Plugin</url>
@@ -60,11 +61,11 @@
       <url>http://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
-  
-    <properties>
-        <workflow.version>1.11</workflow.version>
-    </properties>
-    
+
+  <properties>
+    <workflow.version>1.11</workflow.version>
+  </properties>
+
   <repositories>
     <repository>
       <id>repo.jenkins-ci.org</id>
@@ -76,86 +77,101 @@
     </repository>
     <repository>
       <id>jboss-public-repository-group</id>
-	  <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-	</repository>
+      <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+    </repository>
     <repository>
       <id>repository.jboss.org</id>
       <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
     </repository>
   </repositories>
-  
+
   <pluginRepositories>
     <pluginRepository>
       <id>repo.jenkins-ci.org</id>
       <url>https://repo.jenkins-ci.org/public/</url>
     </pluginRepository>
   </pluginRepositories>
-  
+
+
   <dependencies>
-	<dependency>
-  		<groupId>com.squareup.okhttp3</groupId>
-  		<artifactId>okhttp</artifactId>
-  		<version>3.3.1</version>
-	</dependency>
-	<dependency>
-			<groupId>org.jboss</groupId>
-			<artifactId>jboss-dmr</artifactId>
-			<version>1.3.0.Final</version>
-	</dependency>
+    <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>okhttp</artifactId>
+      <version>3.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss</groupId>
+      <artifactId>jboss-dmr</artifactId>
+      <version>1.3.0.Final</version>
+    </dependency>
 
-	<dependency>
-	    <groupId>com.openshift</groupId>
-	    <artifactId>openshift-restclient-java</artifactId>
-	    <version>5.9.0.Final</version>
-	</dependency> 
-    
-  	<dependency>
-    	<groupId>org.yaml</groupId>
-    	<artifactId>snakeyaml</artifactId>
-    	<version>1.16</version>
-  	</dependency>
+    <dependency>
+      <groupId>com.openshift</groupId>
+      <artifactId>openshift-restclient-java</artifactId>
+      <version>5.9.0.Final</version>
+      <exclusions>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
 
-        <dependency>
-            <groupId>org.jenkins-ci.main</groupId>
-            <artifactId>jenkins-core</artifactId>
-            <version>1.651</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-step-api</artifactId>
-            <version>${workflow.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-cps</artifactId>
-            <version>${workflow.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-aggregator</artifactId>
-            <version>${workflow.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-aggregator</artifactId>
-            <classifier>tests</classifier>
-            <version>${workflow.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-step-api</artifactId>
-            <classifier>tests</classifier>
-            <version>${workflow.version}</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>1.16</version>
+    </dependency>
 
-        <dependency>
-        	<groupId>io.fabric8.jenkins.plugins</groupId>
-        	<artifactId>openshift-sync</artifactId>
-        	<version>0.0.11</version>
-        </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.main</groupId>
+      <artifactId>jenkins-core</artifactId>
+      <version>1.651</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-step-api</artifactId>
+      <version>${workflow.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-cps</artifactId>
+      <version>${workflow.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-aggregator</artifactId>
+      <version>${workflow.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-aggregator</artifactId>
+      <classifier>tests</classifier>
+      <version>${workflow.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-step-api</artifactId>
+      <classifier>tests</classifier>
+      <version>${workflow.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.fabric8.jenkins.plugins</groupId>
+      <artifactId>openshift-sync</artifactId>
+      <version>0.0.11</version>
+    </dependency>
   </dependencies>
 
   <distributionManagement>
@@ -166,18 +182,14 @@
   </distributionManagement>
 
   <organization>
-  	<name>Red Hat, Inc</name>
-  	<url>http://www.redhat.com</url>
+    <name>Red Hat, Inc</name>
+    <url>http://www.redhat.com</url>
   </organization>
-  <!-- 
-  <scm>
-  	<url>https://github.com/openshift/jenkins-plugin</url>
-  </scm>
-  -->
+  <!-- <scm> <url>https://github.com/openshift/jenkins-plugin</url> </scm> -->
   <scm>
     <connection>scm:git:ssh://github.com/jenkinsci/openshift-pipeline-plugin.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/jenkinsci/openshift-pipeline-plugin.git</developerConnection>
-     <url>https://github.com/jenkinsci/openshift-pipeline-plugin</url>
+    <url>https://github.com/jenkinsci/openshift-pipeline-plugin</url>
     <tag>openshift-pipeline-1.0.56</tag>
   </scm>
   <developers>
